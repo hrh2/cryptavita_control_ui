@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { GiDeliveryDrone } from "react-icons/gi";
 import MapContainer from "./DroneLocation"
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { AiOutlineClear } from "react-icons/ai";
 
 const server = 'https://drone-control-api-ztb6.onrender.com';
 const socket = io(server);
@@ -63,6 +64,11 @@ const DroneControlDashboard = () => {
       socket.emit('sendCommand', { drone_id: droneId, command: command });
     }
   };
+  
+  const clearhistories = ()=>{
+    socket.emit('clear_launched_drones')
+    window.location.reload();
+  }
 
   const handleClick = useCallback((ev) => {
     if (!map) return;
@@ -92,9 +98,9 @@ const DroneControlDashboard = () => {
         </div>
       )}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Automatically Launched Drones</h2>
+        <h2 className="text-2xl font-semibold mb-4 flex py-2">Automatically Launched Drones <AiOutlineClear  className=' cursor-pointer' onClick={clearhistories} size={31}/></h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-lg shadow-md">
+          <table className="min-w-full bg-white rounded-lg shadow-md ">
             <thead>
               <tr>
                 <th className="px-4 py-2 bg-gray-200">...</th>
@@ -242,7 +248,6 @@ const DroneControlDashboard = () => {
     </table>
   </div>
 </div>
-
       </div>
     </div>
   );
