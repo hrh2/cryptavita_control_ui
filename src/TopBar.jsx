@@ -14,10 +14,11 @@ export default function TopBar() {
     </button>
   </div>
   <div className="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow">
-    <div className="lg:flex lg:items-stretch lg:justify-end ml-auto font-bold">
+    <div className="lg:flex md:flex grid grid-cols-2 ml-auto font-bold">
       <a href="/" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-black hover:bg-[#0000001e] rounded my-1  no-underline flex items-center hover:bg-grey-dark">Dashboard</a>
       <a href="/feeds" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-black no-underline hover:bg-[#0000001e] rounded my-1 flex items-center hover:bg-grey-dark">Drone Feeds</a>
       <a href="/results" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-black no-underline hover:bg-[#0000001e] rounded my-1 flex items-center hover:bg-grey-dark">surveillance Results</a>
+      <a href="/chatbot" className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-black no-underline hover:bg-[#0000001e] rounded my-1 flex items-center hover:bg-grey-dark">Bot</a>
     </div>
   </div>
 </nav>
