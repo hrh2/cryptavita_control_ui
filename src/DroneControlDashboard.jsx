@@ -7,7 +7,7 @@ import { GiDeliveryDrone } from "react-icons/gi";
 import MapContainer from "./DroneLocation"
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
-const server = 'http://localhost:5000';
+const server = 'https://drone-control-api-ztb6.onrender.com';
 const socket = io(server);
 
 const DroneControlDashboard = () => {
