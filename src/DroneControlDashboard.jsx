@@ -7,6 +7,8 @@ import { GiDeliveryDrone } from "react-icons/gi";
 import MapContainer from "./DroneLocation"
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { AiOutlineClear } from "react-icons/ai";
+import { FaLightbulb } from "react-icons/fa";
+import { BsFillLightbulbOffFill } from "react-icons/bs";
 
 const server = 'https://drone-control-api-ztb6.onrender.com';
 const socket = io(server);
@@ -98,7 +100,7 @@ const DroneControlDashboard = () => {
         </div>
       )}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 flex py-2">Automatically Launched Drones <AiOutlineClear  className=' cursor-pointer' onClick={clearhistories} size={31}/></h2>
+        <h2 className="text-2xl font-semibold mb-4 flex py-2">Automatically Launched Drones <AiOutlineClear  className='text-red-500 cursor-pointer' onClick={clearhistories} size={31}/></h2>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded-lg shadow-md ">
             <thead>
@@ -179,15 +181,21 @@ const DroneControlDashboard = () => {
             <input type="text" value={droneId} placeholder='Drone ID' className='border-2 rounded mx-2 border-gray-500' onChange={(e)=>setDroneId(e.target.value)} />
           </div>
           <div className="grid gap-4">
-            <div className='grid grid-cols-3 gap-4'>
-              <button type="button" onClick={() => sendCommand('S',"Disable Autopilote")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Start">
+            <div className='grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-4'>
+              <button type="button" onClick={() => sendCommand('S',"Disable Autopilote")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Start Controlling the drone">
                 <FaPlay size={32} />
               </button>
-              <button type="button" onClick={() => sendCommand('T',"Enable Autopilote")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Stop">
+              <button type="button" onClick={() => sendCommand('T',"Enable Autopilote")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Stop controlling the drone">
                 <FaStop size={32} />
               </button>
-              <button type="button" onClick={() => sendCommand('H',"Stop surveillance  and Return To station")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Home">
+              <button type="button" onClick={() => sendCommand('H',"Stop surveillance  and Return To station")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Return Home">
                 <FaHome size={32} />
+              </button>
+              <button type="button" onClick={() => sendCommand('on',"Turn Lights up")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Turn on life">
+                <FaLightbulb size={32} />
+              </button>
+              <button type="button" onClick={() => sendCommand('off',"Turn Lights up")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center" title="Turn off life">
+                <BsFillLightbulbOffFill size={32} />
               </button>
             </div>
             <div className='min-h-[30vh] max-h-[40vh] mx-auto aspect-square grid grid-cols-3 grid-rows-3 gap-8'>
