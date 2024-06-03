@@ -1,103 +1,53 @@
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+
+const socket = io();
 
 export default function Results() {
+  const [imageDescriptions, setImageDescriptions] = useState([]);
+
+  useEffect(() => {
+    // Listen for 'descriptionAndImage' event from the server
+    socket.on('descriptionAndImage', (data) => {
+      setImageDescriptions(prevDescriptions => [...prevDescriptions, data]);
+    });
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off('descriptionAndImage');
+    };
+  }, []);
+
   return (
-    <div>
-<div className="container mx-auto p-4">
+    <div className="container mx-auto p-4">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold">AI Model and Computer Vision Results</h1>
+        <p className="text-lg mt-2">These are the results returned by the AI model and computer vision analysis from the Droone.</p>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="grid gap-4">
-          <div>
+        {imageDescriptions.map((imageDesc, index) => (
+          <div key={index} className="border p-4 rounded-lg shadow-md">
             <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://upload.wikimedia.org/wikipedia/commons/0/03/Kashi_Vishwanath_Temple_Banaras.jpg"
-              alt=""
+              className="h-auto max-w-full rounded-lg mb-2"
+              src={`data:image/jpeg;base64,${arrayBufferToBase64(imageDesc.image)}`}
+              alt={`Image ${index}`}
             />
+            <div className="text-center">
+              <p>{imageDesc.description}</p>
+            </div>
           </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://pbs.twimg.com/media/FGRnUzPVEAAbqM8?format=jpg&name=large"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://pbs.twimg.com/media/FGRnNpAVUAYqRYv?format=jpg&name=large"
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://pbs.twimg.com/media/FGRnP_TUUAAttG3?format=jpg&name=large"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://i.pinimg.com/originals/c0/7d/17/c07d17d7ca0b9f39f5aded4b6dca8f02.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Benares-_The_Golden_Temple%2C_India%2C_ca._1915_%28IMP-CSCNWW33-OS14-66%29.jpg/1280px-Benares-_The_Golden_Temple%2C_India%2C_ca._1915_%28IMP-CSCNWW33-OS14-66%29.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://www.jagranimages.com/images/newimg/27072020/27_07_2020-shri-kashi-vishwanath-temple_20557350.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://www.jansatta.com/wp-content/uploads/2021/12/Kashi-Vishwanath-Mandir.png?w=1024"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://staticimg.amarujala.com/assets/images/2021/11/07/750x506/kashi-vishwanath-dham_1636258507.jpeg?w=674&dpr=1.0"
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://staticimg.amarujala.com/assets/images/2020/01/13/750x506/kashi-vishwanath-mandir-varanasi_1578924152.png?w=700&dpr=2.0"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Ahilya_Ghat_by_the_Ganges%2C_Varanasi.jpg/800px-Ahilya_Ghat_by_the_Ganges%2C_Varanasi.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto max-w-full rounded-lg"
-              src="https://upload.wikimedia.org/wikipedia/commons/2/25/Chet_Singh_Ghat_in_Varanasi.jpg"
-              alt=""
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
-    </div>
-  )
+  );
+}
+
+// Function to convert ArrayBuffer to base64 string
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
 }
