@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io();
+const socket = io('https://cryptavita-mg-ai.onrender.com');
 
 export default function Results() {
   const [imageDescriptions, setImageDescriptions] = useState([]);
@@ -22,7 +22,7 @@ export default function Results() {
     <div className="container mx-auto p-4">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">AI Model and Computer Vision Results</h1>
-        <p className="text-lg mt-2">These are the results returned by the AI model and computer vision analysis from the Droone.</p>
+        <p className="text-lg mt-2">These are the results returned by the AI model and computer vision analysis.</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {imageDescriptions.map((imageDesc, index) => (
