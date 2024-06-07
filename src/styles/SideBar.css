@@ -1,0 +1,38 @@
+.icon-color{
+    color: greenyellow;
+}
+.icon-color-1{
+    border: 2px solid orange;
+}
+
+.material-symbols-outlined {
+    color: greenyellow;
+    display: inline ;
+    font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+}
+
+
+.color-tri{
+    color: red;
+}
+
+.color-circle{
+    color: orange;
+}
+.color-rect{
+    color: aqua;
+}
+.list-item-hover:hover{
+    background-color: rgb(24, 23, 23);
+}
+
+.translate-x-full {
+    transform: translateX(100%);
+}
+.-translate-x-full {
+    transform: translateX(-100%);
+}

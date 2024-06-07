@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.custom-shadow {
+    box-shadow: 0px 0px 64px 0px #BD9AF829;
+}
+/* Target the entire scrollbar */
+::-webkit-scrollbar {
+    width: 0.1px; /* Width of the scrollbar */
+    height: 50%;
+}
+
+/* Track (the background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
